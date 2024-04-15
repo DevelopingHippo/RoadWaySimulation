@@ -4,6 +4,7 @@ import asset.Asset;
 import asset.particle.Particle;
 import asset.particle.ParticleAnimation;
 import main.SimulationMain;
+import world.Tile;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,7 +17,7 @@ public class Engine {
     public CollisionChecker collisionChecker;
     public ArrayList<Particle> particleList = new ArrayList<>();
     public ArrayList<ParticleAnimation> particleAnimationList = new ArrayList<>();
-    private List<Asset> proxyAssetList;
+
 
     Iterator<Particle> iterParticle;
     Iterator<ParticleAnimation> iterAnimation;
@@ -30,17 +31,16 @@ public class Engine {
     public void setup() {
         collisionChecker = new CollisionChecker(simMain);
 
-        simMain.assetManager.spawnVehicle(15, 7);
-        simMain.assetManager.spawnVehicle(9, 13);
-        simMain.assetManager.spawnVehicle(2, 7);
-        simMain.assetManager.spawnVehicle(8, 4);
+        simMain.assetManager.spawnVehicle(11, 10, true);
+        //simMain.assetManager.spawnVehicle(22, 15, false);
+        //simMain.assetManager.spawnVehicle(31, 10, true);
     }
 
 
     public void update() {
         simMain.user.update();
 
-        proxyAssetList = new ArrayList<>(simMain.assetManager.allAssets);
+        List<Asset> proxyAssetList = new ArrayList<>(simMain.assetManager.allAssets);
 
         iterAsset = proxyAssetList.iterator();
         while (iterAsset.hasNext()) {

@@ -17,11 +17,13 @@ public class AssetManager {
     }
 
 
-    public void spawnVehicle(int worldX, int worldY) {
-
+    public void spawnVehicle(int worldX, int worldY, boolean isDrivingLeft) {
         Vehicle vehicle = new Vehicle(simMain);
+        vehicle.isDrivingLeft = isDrivingLeft;
         vehicle.worldX = worldX * simMain.tileSize;
         vehicle.worldY = worldY * simMain.tileSize;
+        vehicle.startingTileX = worldX * simMain.tileSize;
+        vehicle.startingTileY = worldY * simMain.tileSize;
         vehicle.uuid = AssetHelper.generateUUID();
         allAssets.add(vehicle);
     }
@@ -31,20 +33,17 @@ public class AssetManager {
         Random rand = new Random();
         allAssets.removeIf(asset -> asset.equals(asset_to_remove));
 
-        int selection = rand.nextInt(4);
+        int selection = rand.nextInt(3);
 
         switch (selection) {
             case 0:
-                spawnVehicle(15, 7);
+                spawnVehicle(11, 10, true);
                 break;
             case 1:
-                spawnVehicle(8, 4);
+                spawnVehicle(22, 15, false);
                 break;
             case 2:
-                spawnVehicle(2, 7);
-                break;
-            case 3:
-                spawnVehicle(9, 13);
+                spawnVehicle(31, 10, true);
                 break;
         }
     }

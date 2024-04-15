@@ -74,6 +74,14 @@ public class TileManager {
             Tile tile = new Tile();
             tile.image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(filePath)));
             tile.image = AssetHelper.scaleImage(tile.image, simMain.tileSize, simMain.tileSize);
+
+            if(name.contains("street")) {
+                tile.road = true;
+                if(name.contains("left")){
+                    tile.leftRoad = true;
+                }
+            }
+            tile.name = name;
             tile.collision = collision;
             tiles[i] = tile;
             tileList.put(name, i);
@@ -135,10 +143,10 @@ public class TileManager {
                 worldCol = 0;
                 worldRow++;
             }
-//            if(simMain.ui.debug) {
-//                g2.setColor(Color.red);
-//                g2.drawRect(screenX, screenY, simMain.tileSize, simMain.tileSize);
-//            }
+            if(tiles[tileNum].debug) {
+                g2.setColor(Color.red);
+                g2.drawRect(screenX, screenY, simMain.tileSize, simMain.tileSize);
+            }
         }
     }
 }

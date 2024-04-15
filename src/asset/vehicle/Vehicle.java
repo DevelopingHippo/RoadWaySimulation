@@ -12,16 +12,25 @@ import java.awt.image.BufferedImage;
 
 public class Vehicle extends Asset {
 
+    public boolean isDrivingLeft = false;
     public boolean isMoving = true;
     public boolean collision = false;
     public int collisionBoxDefaultX, collisionBoxDefaultY;
     public final VehicleSimulation vehicleSimulation = new VehicleSimulation(this);
 
+    public boolean parked;
+    public int startingTileX;
+    public int startingTileY;
+    public Rectangle startingTileBox;
+
     public Vehicle(SimulationMain simMain) {
         super(simMain);
         AssetHelper.setupAllImages(this, "/images/vehicle/", simMain.tileSize, simMain.tileSize);
         setup();
-        collisionBox = new Rectangle(0, 0, simMain.tileSize, simMain.tileSize);
+
+        collisionBox = new Rectangle(0, 0, simMain.tileSize / 2, simMain.tileSize / 2);
+        startingTileBox = new Rectangle(0, 0, simMain.tileSize, simMain.tileSize);
+        parked = true;
     }
 
     public void generateSmokeParticle(Asset generator) {
@@ -45,7 +54,7 @@ public class Vehicle extends Asset {
     }
 
     public void generateSmokeAnimation() {
-        ParticleAnimation smokeAnimation = new ParticleAnimation(simMain, this, 500);
+        ParticleAnimation smokeAnimation = new ParticleAnimation(simMain, this, 300);
         simMain.engine.particleAnimationList.add(smokeAnimation);
     }
 
@@ -71,7 +80,7 @@ public class Vehicle extends Asset {
         }
         if(particleGenerated){
             particleLockCount++;
-            if(particleLockCount > 500){
+            if(particleLockCount > 300){
                 particleLockCount = 0;
                 particleGenerated = false;
                 killAsset();
@@ -113,13 +122,18 @@ public class Vehicle extends Asset {
         int screenX = worldX - simMain.user.worldX + simMain.user.screenX;
         int screenY = worldY - simMain.user.worldY + simMain.user.screenY;
 
+        int start_screenX = startingTileX - simMain.user.worldX + simMain.user.screenX;
+        int start_screenY = startingTileY - simMain.user.worldY + simMain.user.screenY;
+
         BufferedImage image;
 
         if (isInUserVision()) {
             image = animation.moveAnimation();
             if(simMain.debug) {
                 g2.setColor(Color.red);
-                g2.drawRect(screenX + collisionBox.x, screenY + collisionBox.y, collisionBox.width, collisionBox.height);
+                g2.drawRect(screenX, screenY, collisionBox.width, collisionBox.height);
+                g2.setColor(Color.green);
+                g2.drawRect(start_screenX, start_screenY, simMain.tileSize, simMain.tileSize);
             }
             g2.drawImage(image, screenX, screenY,null);
         }

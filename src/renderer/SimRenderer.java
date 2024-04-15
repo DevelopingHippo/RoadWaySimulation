@@ -4,6 +4,7 @@ import asset.Asset;
 import asset.particle.Particle;
 import asset.particle.ParticleAnimation;
 import main.SimulationMain;
+import world.Tile;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class SimRenderer {
     public ArrayList<Asset> renderEntityList = new ArrayList<>();
     public ArrayList<Particle> renderParticleList = new ArrayList<>();
     public ArrayList<ParticleAnimation> renderParticleAnimationList = new ArrayList<>();
+    public ArrayList<Tile> debugTileList = new ArrayList<>();
+
 
 
     public SimRenderer(SimulationMain simMain) {
@@ -50,7 +53,6 @@ public class SimRenderer {
         for(ParticleAnimation particle : renderParticleAnimationList){
             particle.draw(g2);
         }
-
 
         renderParticleList.clear();
         renderEntityList.clear();
