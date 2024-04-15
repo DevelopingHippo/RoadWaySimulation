@@ -7,6 +7,7 @@ import main.SimulationMain;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Engine {
 
@@ -14,9 +15,12 @@ public class Engine {
     public final SimulationMain simMain;
     public CollisionChecker collisionChecker;
     public ArrayList<Particle> particleList = new ArrayList<>();
-    Iterator<Particle> iter;
-    Iterator<ParticleAnimation> iterAnimation;
     public ArrayList<ParticleAnimation> particleAnimationList = new ArrayList<>();
+    private List<Asset> proxyAssetList;
+
+    Iterator<Particle> iterParticle;
+    Iterator<ParticleAnimation> iterAnimation;
+    Iterator<Asset> iterAsset;
 
 
     public Engine(SimulationMain simMain) {
@@ -26,29 +30,40 @@ public class Engine {
     public void setup() {
         collisionChecker = new CollisionChecker(simMain);
 
-        simMain.assetManager.spawnVehicle(8, 11);
-        simMain.assetManager.spawnVehicle(10, 11);
-        simMain.assetManager.spawnVehicle(12, 11);
-        simMain.assetManager.spawnVehicle(14, 11);
-        simMain.assetManager.spawnVehicle(16, 11);
+        simMain.assetManager.spawnVehicle(15, 7);
+        simMain.assetManager.spawnVehicle(9, 13);
+        simMain.assetManager.spawnVehicle(2, 7);
+        simMain.assetManager.spawnVehicle(8, 4);
     }
 
 
     public void update() {
         simMain.user.update();
-        for (Asset asset : simMain.assetManager.allAssets) {
-            asset.update();
+
+        proxyAssetList = new ArrayList<>(simMain.assetManager.allAssets);
+
+        iterAsset = proxyAssetList.iterator();
+        while (iterAsset.hasNext()) {
+            Asset asset = iterAsset.next();
+            if (asset != null) {
+                if (asset.isAlive) {
+                    asset.update();
+                }
+                else {
+                    iterAsset.remove();
+                }
+            }
         }
 
-        iter = particleList.iterator();
-        while (iter.hasNext()) {
-            Particle particle = iter.next();
+        iterParticle = particleList.iterator();
+        while (iterParticle.hasNext()) {
+            Particle particle = iterParticle.next();
             if (particle != null) {
                 if (particle.isAlive) {
                     particle.update();
                 }
                 else {
-                    iter.remove();
+                    iterParticle.remove();
                 }
             }
         }

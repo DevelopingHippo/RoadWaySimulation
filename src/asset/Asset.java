@@ -18,6 +18,7 @@ public class Asset {
     public boolean isMoving = false;
     public int spriteCounter = 0;
     public int spriteNum = 1;
+    public boolean isAlive = true;
     public int actionLockCounter = 0;
 
     public int particlesGenerated = 0;
@@ -85,6 +86,10 @@ public class Asset {
 ////        }
     }
 
+    public void killAsset() {
+        isAlive = false;
+        simMain.assetManager.removeAsset(this);
+    }
 
     public void draw(Graphics2D g2){
         System.out.println("DRAW FAILED");

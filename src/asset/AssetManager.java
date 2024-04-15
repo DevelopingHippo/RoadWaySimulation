@@ -3,7 +3,9 @@ package asset;
 import asset.vehicle.Vehicle;
 import main.SimulationMain;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AssetManager {
 
@@ -25,4 +27,25 @@ public class AssetManager {
     }
 
 
+    public void removeAsset(Asset asset_to_remove) {
+        Random rand = new Random();
+        allAssets.removeIf(asset -> asset.equals(asset_to_remove));
+
+        int selection = rand.nextInt(4);
+
+        switch (selection) {
+            case 0:
+                spawnVehicle(15, 7);
+                break;
+            case 1:
+                spawnVehicle(8, 4);
+                break;
+            case 2:
+                spawnVehicle(2, 7);
+                break;
+            case 3:
+                spawnVehicle(9, 13);
+                break;
+        }
+    }
 }

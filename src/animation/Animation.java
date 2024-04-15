@@ -39,6 +39,10 @@ public class Animation {
                 if (asset.spriteNum == 1) { image = asset.right1; }
                 if (asset.spriteNum == 2) { image = asset.right2; }
                 break;
+            case "stop":
+                if (asset.spriteNum == 1) { image = asset.right1; }
+                if (asset.spriteNum == 2) { image = asset.right1; }
+                break;
         }
         return image;
     }
@@ -48,7 +52,6 @@ public class Animation {
         BufferedImage image = null;
         if (particleAnimation.spriteNum == 1) { image = particleAnimation.image1;}
         if (particleAnimation.spriteNum == 2) { image = particleAnimation.image2; }
-
 
         if(particleAnimation.spriteNum == 3) { image = particleAnimation.image3; }
         if(particleAnimation.spriteNum == 4) { image = particleAnimation.image4; }
