@@ -13,6 +13,15 @@ import java.awt.*;
 
 public class SimulationMain extends JPanel implements Runnable {
 
+    // SCREEN SETTINGS
+    final int originalTileSize = 16; // 16px x 16px tile (Character/Map/Textures)
+    final int scale = 4; // Scales tile size * scale
+    public final int tileSize = originalTileSize * scale; // 48x48 tile
+    public int maxScreenCol = 24;
+    public int maxScreenRow = 16;
+    public final int screenWidth = tileSize * maxScreenCol; // 768 Pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 Pixels
+
 
     public Thread simThread;
     public Engine engine = new Engine(this);
@@ -24,14 +33,7 @@ public class SimulationMain extends JPanel implements Runnable {
     public User user = new User(this);
     public boolean debug = false;
 
-    // SCREEN SETTINGS
-    final int originalTileSize = 16; // 16px x 16px tile (Character/Map/Textures)
-    final int scale = 4; // Scales tile size * scale
-    public final int tileSize = originalTileSize * scale; // 48x48 tile
-    public final int maxScreenCol = 24;
-    public final int maxScreenRow = 16;
-    public final int screenWidth = tileSize * maxScreenCol; // 768 Pixels
-    public final int screenHeight = tileSize * maxScreenRow; // 576 Pixels
+
 
     public UserControls userControls = new UserControls(this);
 
@@ -60,7 +62,7 @@ public class SimulationMain extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = (double) 1000000000 /fps;
+        double drawInterval = (double) 1000000000 / fps;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;

@@ -37,11 +37,13 @@ public class UserControls implements KeyListener {
         if(code == KeyEvent.VK_D) {
             rightPressed = true;
         }
-
+        if(code == KeyEvent.VK_SHIFT) {
+            shiftPressed = true;
+            simMain.user.speed = 4;
+        }
         if(code == KeyEvent.VK_F1) {
             simMain.debug = !simMain.debug;
         }
-
     }
 
     @Override
@@ -59,6 +61,10 @@ public class UserControls implements KeyListener {
         }
         if(code == KeyEvent.VK_D) {
             rightPressed = false;
+        }
+        if(code == KeyEvent.VK_SHIFT) {
+            shiftPressed = false;
+            simMain.user.speed = 2;
         }
     }
 

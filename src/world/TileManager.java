@@ -69,7 +69,6 @@ public class TileManager {
     }
 
     public void setup(int i, String name, boolean collision) {
-
         try {
             String filePath = "/Tiles/Images/" + name;
             Tile tile = new Tile();
@@ -129,7 +128,7 @@ public class TileManager {
                     worldX - simMain.tileSize < simMain.user.worldX + simMain.user.screenX &&
                     worldY + simMain.tileSize > simMain.user.worldY - simMain.user.screenX &&
                     worldY - simMain.tileSize < simMain.user.worldY + simMain.user.screenY) {
-                g2.drawImage(tiles[tileNum].image, screenX, screenY, null);
+                g2.drawImage(tiles[tileNum].image, screenX, screenY, simMain.tileSize, simMain.tileSize,null);
             }
             worldCol++;
             if (worldCol == simMain.world.maxWorldCol) {

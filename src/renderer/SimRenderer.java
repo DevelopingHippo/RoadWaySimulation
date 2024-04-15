@@ -1,6 +1,8 @@
 package renderer;
 
 import asset.Asset;
+import asset.particle.Particle;
+import asset.particle.ParticleAnimation;
 import main.SimulationMain;
 
 import java.awt.*;
@@ -9,6 +11,8 @@ import java.util.ArrayList;
 public class SimRenderer {
     public final SimulationMain simMain;
     public ArrayList<Asset> renderEntityList = new ArrayList<>();
+    public ArrayList<Particle> renderParticleList = new ArrayList<>();
+    public ArrayList<ParticleAnimation> renderParticleAnimationList = new ArrayList<>();
 
 
     public SimRenderer(SimulationMain simMain) {
@@ -18,13 +22,39 @@ public class SimRenderer {
 
 
     public void render(Graphics2D g2) {
-
         simMain.tileManager.draw(g2);
-
         for(Asset asset : simMain.assetManager.allAssets) {
-            asset.draw(g2);
+            if(asset != null){
+                renderEntityList.add(asset);
+            }
         }
 
+        for(Particle particle : simMain.engine.particleList) {
+            if(particle != null){
+                renderParticleList.add(particle);
+            }
+        }
+
+        for(ParticleAnimation particle : simMain.engine.particleAnimationList) {
+            if(particle != null){
+                renderParticleAnimationList.add(particle);
+            }
+        }
+
+        for(Asset asset : simMain.renderer.renderEntityList){
+            asset.draw(g2);
+        }
+        for(Particle particle : renderParticleList){
+            particle.draw(g2);
+        }
+        for(ParticleAnimation particle : renderParticleAnimationList){
+            particle.draw(g2);
+        }
+
+
+        renderParticleList.clear();
+        renderEntityList.clear();
+        renderParticleAnimationList.clear();
         g2.dispose();
     }
 

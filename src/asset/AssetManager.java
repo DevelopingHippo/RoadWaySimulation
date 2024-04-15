@@ -1,5 +1,6 @@
 package asset;
 
+import asset.vehicle.Vehicle;
 import main.SimulationMain;
 
 import java.util.ArrayList;
@@ -15,9 +16,11 @@ public class AssetManager {
 
 
     public void spawnVehicle(int worldX, int worldY) {
+
         Vehicle vehicle = new Vehicle(simMain);
         vehicle.worldX = worldX * simMain.tileSize;
         vehicle.worldY = worldY * simMain.tileSize;
+        vehicle.uuid = AssetHelper.generateUUID();
         allAssets.add(vehicle);
     }
 

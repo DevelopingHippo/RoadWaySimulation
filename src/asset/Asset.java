@@ -14,11 +14,21 @@ public class Asset {
     public String direction = "down";
     public int speed = 1;
     public Animation animation = new Animation(this);
-
+    public String uuid;
     public boolean isMoving = false;
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public int actionLockCounter = 0;
+
+    public int particlesGenerated = 0;
+    public int maxParticles = 10;
+    public int particleLockCount = 0;
+    public boolean particleGenerated = false;
+
+    public boolean collisionOn = false;
+    public boolean collision = false;
+    public Rectangle collisionBox = new Rectangle(0, 0, 48, 48);
+    public int collisionBoxDefaultX, collisionBoxDefaultY;
 
     public Asset(SimulationMain simMain) {
         this.simMain = simMain;
@@ -27,6 +37,11 @@ public class Asset {
     public void setAction(){
 
     }
+
+    public void generateParticle(Asset generator, Asset target) {
+
+    }
+
 
     public boolean isInUserVision() {
         return worldX + simMain.tileSize > simMain.user.worldX - simMain.user.screenX &&
